@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  validates :users, :email, :session_token, uniqueness: true
+  validates :email, :session_token, uniqueness: true
 
   after_initialize :ensure_session_token
 
@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
-    if user && is_password?(password)
+    if user && user.is_password?(password)
       return user
     else
       return nil
@@ -20,6 +20,8 @@ class User < ApplicationRecord
 
   def reset_session_token!
     self.session_token = User.generate_session_token
+    self.save!
+    self.session_token
   end
 
   def ensure_session_token
@@ -27,7 +29,7 @@ class User < ApplicationRecord
   end
 
   def password=(pw)
-    self.password_digest = BCrypt::Password.new(pw)
+    self.password_digest = BCrypt::Password.create(pw)
   end
 
   def is_password?(pw)

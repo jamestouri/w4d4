@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <% if logged_in? %>
 <%      button_description = "Logout" %>
-<%      url = "new_user_url" %>
+<%      url = session_url(current_user) %>
 <%      status = "Logged In!" %>
 <% else%>
 <%      button_description = "Log In!" %>
-<%      url = "user_url" %>
+<%      url = new_session_url %>
 <%      status = "Logged Out" %>
 <% end  %>
 <html>
@@ -20,16 +20,19 @@
   </head>
 
   <body>
+
     <h1> Welcome to the Music App</h1>
-    <%= yield %>
+
     <form action="<%=url%>" method="post">
       <% if logged_in? %>
           <input type="hidden" name="_method" value="delete">
+
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+          <input type="submit" value="<%= button_description %>">
+      <%else %>
+        <a href="/sessions/new"> Log In Here </a>
       <% end  %>
-      <input type="submit" value="<%= button_description %>">
     </form>
-    <div class="status">
-      <h4> <%=status %> </h4>
-    </div>
+      <%= yield %>
   </body>
 </html>
