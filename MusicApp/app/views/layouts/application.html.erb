@@ -1,6 +1,16 @@
 <!DOCTYPE html>
+<% if logged_in? %>
+<%      button_description = "Logout" %>
+<%      url = "new_user_url" %>
+<%      status = "Logged In!" %>
+<% else%>
+<%      button_description = "Log In!" %>
+<%      url = "user_url" %>
+<%      status = "Logged Out" %>
+<% end  %>
 <html>
   <head>
+    <link rel="stylesheet" href="styling.css">
     <title>MusicApp</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,6 +20,16 @@
   </head>
 
   <body>
+    <h1> Welcome to the Music App</h1>
     <%= yield %>
+    <form action="<%=url%>" method="post">
+      <% if logged_in? %>
+          <input type="hidden" name="_method" value="delete">
+      <% end  %>
+      <input type="submit" value="<%= button_description %>">
+    </form>
+    <div class="status">
+      <h4> <%=status %> </h4>
+    </div>
   </body>
 </html>

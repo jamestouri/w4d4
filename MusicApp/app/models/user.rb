@@ -34,7 +34,4 @@ class User < ApplicationRecord
     BCrypt::Password.new(self.password_digest).is_password?(pw)
   end
 
-
-
-
 end

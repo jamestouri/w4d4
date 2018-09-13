@@ -1,0 +1,16 @@
+<!-- <h1>New User</h1> -->
+
+<form action="user_path" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  Email
+  <br>
+  <input type="text" name="user[email]">
+  <br>
+  <br>
+  <br>
+  Password
+  <br>
+  <input type="password" name="user[password_digest]">
+  <br>
+  <input type="submit" value="Signup">
+</form>
