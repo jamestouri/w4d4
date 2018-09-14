@@ -7,10 +7,16 @@ class AlbumsController < ApplicationController
 
   def create
     @album = Album.new(album_params)
+    if @album.save
+      redirect_to album_url(@album)
+    else
+      @album.errors.full_messages
+      render :new
   end
 
   def show
-
+    @album = Album.find_by(id: params[:id])
+    render :show
   end
 
   private

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :users
-  resource :sessions
+  resources :sessions
   resources :bands do
     resources :albums, only: :new
   end

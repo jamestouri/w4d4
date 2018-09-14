@@ -1,3 +1,20 @@
 <h1>New Album </h1>
 
-<form action
+<form action="<%=albums_url%>" method="post">
+  Who Made This Album?
+  <br>
+  <select name="album[band_id]">
+    <% bands = Bands.all %>
+    <% bands.each do |band| %>
+        <option value="<%=band.id%>"> <%=band.name%></option>
+    <% end %>
+  </select>
+  <br>
+  Name of Album
+  <input type="text" name="album[title]">
+  <br>
+  Year
+  <input type="text" name="album[year]">
+  <br>
+  <input type="submit" value="Save Band">
+</form>
